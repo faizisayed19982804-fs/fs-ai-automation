@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F.S AI Automation</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#edf1fa;font:14px Arial,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+h1{margin:0}.muted{color:#8e99b2}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.card{background:#121a2e;border:1px solid #29344f;border-radius:14px;padding:18px}.metric{font-size:30px;font-weight:800;margin:8px 0}
+.btn{background:#6d5dfc;color:white;border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}
+table{width:100%;border-collapse:collapse}.card table{margin-top:8px}th,td{padding:12px;border-bottom:1px solid #26304a;text-align:left}
+.badge{padding:5px 8px;border-radius:999px;background:#26304a}.hot{background:#44242c;color:#ff9ca7}.warm{background:#3d351d;color:#f6d26a}
+.chat{max-width:780px}.messages{height:340px;overflow:auto}.msg{padding:10px 12px;border-radius:12px;max-width:78%;margin:10px 0;line-height:1.45}.customer{background:#202a42}.assistant{background:#244033;margin-left:auto}
+.row{display:flex;gap:8px;margin-top:12px}.row input{flex:1;background:#0d1425;border:1px solid #2a3551;color:white;padding:11px;border-radius:9px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.wrap{padding:16px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="wrap">
+<div class="top"><div><h1>F.S AI Automation</h1><div class="muted">Real backend + AI sales engine</div></div><button class="btn" onclick="addDemoLead()">Add Test Lead</button></div>
+<div class="grid"><div class="card"><div class="muted">Leads</div><div class="metric" id="leads">—</div></div><div class="card"><div class="muted">Hot Leads</div><div class="metric" id="hot">—</div></div><div class="card"><div class="muted">Appointments</div><div class="metric" id="apps">—</div></div><div class="card"><div class="muted">AI</div><div class="metric" id="ai">—</div></div></div>
+<div class="card"><h2>AI Sales Assistant</h2><p class="muted">This sends messages to the backend. With OPENAI_API_KEY configured, the backend uses the OpenAI Responses API; without it, a safe local fallback is used.</p>
+<div id="messages" class="messages"><div class="msg customer">Hi, I'm looking for a 2BHK in Andheri under ₹1.5 crore.</div></div>
+<div class="row"><input id="input" placeholder="Type a customer message..."><button class="btn" onclick="send()">Send</button></div></div>
+<div class="card" style="margin-top:16px"><h2>Leads</h2><table><thead><tr><th>Name</th><th>Requirement</th><th>Budget</th><th>Status</th><th>Score</th></tr></thead><tbody id="leadRows"></tbody></table></div>
+</div>
+<script>
+let selectedLeadId=null;
+async function load(){
+ const [d,l]=await Promise.all([fetch('/api/dashboard').then(r=>r.json()),fetch('/api/leads').then(r=>r.json())]);
+ document.getElementById('leads').textContent=d.totalLeads;document.getElementById('hot').textContent=d.hotLeads;document.getElementById('apps').textContent=d.appointments;document.getElementById('ai').textContent=d.aiConfigured?'LIVE':'NOT SET';
+ selectedLeadId=selectedLeadId||l[0]?.id;
+ document.getElementById('leadRows').innerHTML=l.map(x=>`<tr onclick="selectedLeadId='${x.id}'" style="cursor:pointer"><td>${x.name}</td><td>${x.requirement}</td><td>${x.budget||'—'}</td><td><span class="badge ${x.status}">${x.status}</span></td><td>${x.score}</td></tr>`).join('');
+}
+async function send(){
+ const input=document.getElementById('input'), text=input.value.trim(); if(!text)return;
+ document.getElementById('messages').innerHTML+=`<div class="msg customer">${text}</div>`; input.value='';
+ const r=await fetch('/api/ai/reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:selectedLeadId,message:text,source:'dashboard'})});
+ const data=await r.json();
+ document.getElementById('messages').innerHTML+=`<div class="msg assistant">${data.reply||data.error}</div>`;
+}
+async function addDemoLead(){
+ await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'Demo Prospect '+Date.now().toString().slice(-4),requirement:'2BHK • Andheri',budget:'₹1.5 Cr',timeline:'Within 30 days',source:'dashboard'})});
+ await load();
+}
+load();
+</script></body></html>
