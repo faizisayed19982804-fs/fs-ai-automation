@@ -1,47 +1,189 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>F.S AI Automation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="FS AI Automation — AI automation and intelligent business systems for modern businesses.">
+<title>FS AI Automation</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#edf1fa;font:14px Arial,sans-serif}
-.wrap{max-width:1200px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px}
-h1{margin:0}.muted{color:#8e99b2}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
-.card{background:#121a2e;border:1px solid #29344f;border-radius:14px;padding:18px}.metric{font-size:30px;font-weight:800;margin:8px 0}
-.btn{background:#6d5dfc;color:white;border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}
-table{width:100%;border-collapse:collapse}.card table{margin-top:8px}th,td{padding:12px;border-bottom:1px solid #26304a;text-align:left}
-.badge{padding:5px 8px;border-radius:999px;background:#26304a}.hot{background:#44242c;color:#ff9ca7}.warm{background:#3d351d;color:#f6d26a}
-.chat{max-width:780px}.messages{height:340px;overflow:auto}.msg{padding:10px 12px;border-radius:12px;max-width:78%;margin:10px 0;line-height:1.45}.customer{background:#202a42}.assistant{background:#244033;margin-left:auto}
-.row{display:flex;gap:8px;margin-top:12px}.row input{flex:1;background:#0d1425;border:1px solid #2a3551;color:white;padding:11px;border-radius:9px}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.wrap{padding:16px}.grid{grid-template-columns:1fr}}
+:root{--bg:#060812;--panel:#101625;--line:#273149;--text:#f4f7ff;--muted:#a6b0c4;--a:#7565ff;--b:#18c7a6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 80% 10%,#1a1645 0,#060812 35%),#060812;color:var(--text)}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1120px,92%);margin:auto}
+.nav{position:sticky;top:0;z-index:10;background:#060812dd;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}
+.navin{height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.12em}
+.logo{width:40px;height:40px;border:1px solid #455070;border-radius:11px;display:grid;place-items:center;background:#12192a}
+.links{display:flex;gap:24px;color:#bac3d5;font-size:14px}
+.cta{padding:11px 16px;border-radius:11px;background:linear-gradient(135deg,var(--a),#5145e8)}
+.hero{padding:100px 0 80px}
+.heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.tag{font-size:12px;letter-spacing:.16em;color:#aeb7c9;text-transform:uppercase}
+h1{font-size:clamp(55px,8vw,92px);line-height:.92;letter-spacing:-.06em;margin:18px 0}
+h1 span{background:linear-gradient(90deg,#fff,#9e94ff,#73efd8);color:transparent;background-clip:text}
+.lead{font-size:20px;line-height:1.6;color:var(--muted);max-width:650px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{padding:14px 18px;border-radius:12px;border:1px solid var(--line)}
+.primary{background:linear-gradient(135deg,var(--a),#5145e8)}
+.status{margin-top:18px;color:#7debd7;font-size:13px}
+.visual{height:390px;position:relative;display:grid;place-items:center}
+.orb{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#9188ff 18%,#4638c8 48%,#101326 75%);box-shadow:0 0 100px #7565ff55}
+.ring{position:absolute;border:1px solid #7565ff66;border-radius:50%}
+.r1{width:320px;height:320px}
+.r2{width:430px;height:140px;transform:rotate(20deg)}
+.r3{width:150px;height:430px;transform:rotate(20deg)}
+.float{position:absolute;background:#121a2bdd;border:1px solid #36425f;padding:10px 12px;border-radius:10px;font-size:10px;letter-spacing:.08em}
+.f1{top:40px;right:0}.f2{bottom:40px;left:0}.f3{top:190px;right:-20px}
+section{padding:80px 0;border-top:1px solid #ffffff0d}
+.head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:30px}
+h2{font-size:42px;letter-spacing:-.04em;margin:0}
+.head p{color:var(--muted);max-width:480px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:linear-gradient(180deg,#121a2b,#0d1421);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 18px 60px #0004}
+.num{color:#9e94ff;font-size:12px;margin-bottom:30px}
+.card h3{margin:0 0 10px;font-size:21px}
+.card p{color:var(--muted);line-height:1.6;margin:0}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.price strong{display:block;font-size:34px;margin:12px 0}
+.featured{border-color:#7565ff;box-shadow:0 0 50px #7565ff22}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact p{color:var(--muted);line-height:1.7}
+.whatsapp{color:#82f2df}
+footer{padding:35px 0 55px;color:#8894aa;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:850px){.links{display:none}.heroGrid,.contact{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.prices{grid-template-columns:1fr}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding-top:65px}.visual{height:300px}h2{font-size:34px}}
 </style>
 </head>
-<body><div class="wrap">
-<div class="top"><div><h1>F.S AI Automation</h1><div class="muted">Real backend + AI sales engine</div></div><button class="btn" onclick="addDemoLead()">Add Test Lead</button></div>
-<div class="grid"><div class="card"><div class="muted">Leads</div><div class="metric" id="leads">—</div></div><div class="card"><div class="muted">Hot Leads</div><div class="metric" id="hot">—</div></div><div class="card"><div class="muted">Appointments</div><div class="metric" id="apps">—</div></div><div class="card"><div class="muted">AI</div><div class="metric" id="ai">—</div></div></div>
-<div class="card"><h2>AI Sales Assistant</h2><p class="muted">This sends messages to the backend. With OPENAI_API_KEY configured, the backend uses the OpenAI Responses API; without it, a safe local fallback is used.</p>
-<div id="messages" class="messages"><div class="msg customer">Hi, I'm looking for a 2BHK in Andheri under ₹1.5 crore.</div></div>
-<div class="row"><input id="input" placeholder="Type a customer message..."><button class="btn" onclick="send()">Send</button></div></div>
-<div class="card" style="margin-top:16px"><h2>Leads</h2><table><thead><tr><th>Name</th><th>Requirement</th><th>Budget</th><th>Status</th><th>Score</th></tr></thead><tbody id="leadRows"></tbody></table></div>
+<body>
+
+<nav class="nav">
+<div class="wrap navin">
+<div class="brand"><div class="logo">FS</div>FS AI AUTOMATION</div>
+<div class="links">
+<a href="#systems">Systems</a>
+<a href="#services">Services</a>
+<a href="#pricing">Pricing</a>
+<a href="#contact">Contact</a>
 </div>
-<script>
-let selectedLeadId=null;
-async function load(){
- const [d,l]=await Promise.all([fetch('/api/dashboard').then(r=>r.json()),fetch('/api/leads').then(r=>r.json())]);
- document.getElementById('leads').textContent=d.totalLeads;document.getElementById('hot').textContent=d.hotLeads;document.getElementById('apps').textContent=d.appointments;document.getElementById('ai').textContent=d.aiConfigured?'LIVE':'NOT SET';
- selectedLeadId=selectedLeadId||l[0]?.id;
- document.getElementById('leadRows').innerHTML=l.map(x=>`<tr onclick="selectedLeadId='${x.id}'" style="cursor:pointer"><td>${x.name}</td><td>${x.requirement}</td><td>${x.budget||'—'}</td><td><span class="badge ${x.status}">${x.status}</span></td><td>${x.score}</td></tr>`).join('');
-}
-async function send(){
- const input=document.getElementById('input'), text=input.value.trim(); if(!text)return;
- document.getElementById('messages').innerHTML+=`<div class="msg customer">${text}</div>`; input.value='';
- const r=await fetch('/api/ai/reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:selectedLeadId,message:text,source:'dashboard'})});
- const data=await r.json();
- document.getElementById('messages').innerHTML+=`<div class="msg assistant">${data.reply||data.error}</div>`;
-}
-async function addDemoLead(){
- await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'Demo Prospect '+Date.now().toString().slice(-4),requirement:'2BHK • Andheri',budget:'₹1.5 Cr',timeline:'Within 30 days',source:'dashboard'})});
- await load();
-}
-load();
-</script></body></html>
+<a class="cta" href="#contact">Get started ↗</a>
+</div>
+</nav>
+
+<main>
+
+<section class="hero">
+<div class="wrap heroGrid">
+<div>
+<div class="tag">Autonomous business infrastructure</div>
+<h1>Business,<br><span>re-engineered.</span></h1>
+<p class="lead">FS AI Automation designs intelligent systems that turn leads, conversations, repetitive work and business workflows into scalable digital operations.</p>
+<div class="buttons">
+<a class="btn primary" href="#pricing">Choose your system ↗</a>
+<a class="btn" href="#systems">Explore the stack</a>
+</div>
+<div class="status">● India / INR • Global digital services • Automation-first</div>
+</div>
+
+<div class="visual">
+<div class="orb"></div>
+<div class="ring r1"></div>
+<div class="ring r2"></div>
+<div class="ring r3"></div>
+<div class="float f1">AI CORE / ONLINE</div>
+<div class="float f2">24/7 AUTOMATION</div>
+<div class="float f3">SIGNAL DETECTED +</div>
+</div>
+</div>
+</section>
+
+<section id="systems">
+<div class="wrap">
+<div class="head">
+<h2>One intelligence layer.<br>Every business motion.</h2>
+<p>Connect customer conversations, sales, follow-ups, operations and reporting into smarter workflows.</p>
+</div>
+
+<div class="grid">
+<div class="card"><div class="num">01</div><h3>AI Sales</h3><p>Capture leads, qualify demand, respond faster and automate follow-ups.</p></div>
+<div class="card"><div class="num">02</div><h3>AI Support</h3><p>Organize enquiries, answer common questions and route conversations intelligently.</p></div>
+<div class="card"><div class="num">03</div><h3>Workflow Ops</h3><p>Automate repetitive handoffs, notifications, approvals and recurring tasks.</p></div>
+<div class="card"><div class="num">04</div><h3>Business AI</h3><p>Turn operational data into useful dashboards, reports and decision support.</p></div>
+</div>
+</div>
+</section>
+
+<section id="services">
+<div class="wrap">
+<div class="head">
+<h2>Practical AI systems built for useful work.</h2>
+<p>Designed for startups, small businesses, agencies, online brands and growing teams.</p>
+</div>
+
+<div class="grid">
+<div class="card"><h3>AI Sales Automation</h3><p>Lead capture, qualification, routing, follow-up and sales workflow design.</p></div>
+<div class="card"><h3>Customer Support</h3><p>Faster customer responses, enquiry handling and escalation workflows.</p></div>
+<div class="card"><h3>Workflow Automation</h3><p>Connect repetitive business processes and reduce manual work.</p></div>
+<div class="card"><h3>Custom Automation</h3><p>Build an automation system around your tools, customers and business goals.</p></div>
+</div>
+</div>
+</section>
+
+<section id="pricing">
+<div class="wrap">
+<div class="head">
+<h2>Simple monthly plans.</h2>
+<p>Start small, automate more and scale when your business is ready.</p>
+</div>
+
+<div class="prices">
+<div class="card price">
+<div class="num">STARTER</div>
+<strong>₹9,999</strong>
+<p>Basic automation setup, lead handling and workflow improvement.</p>
+</div>
+
+<div class="card price featured">
+<div class="num">GROWTH</div>
+<strong>₹24,999</strong>
+<p>Advanced sales automation, follow-ups, dashboards and business workflows.</p>
+</div>
+
+<div class="card price">
+<div class="num">CUSTOM</div>
+<strong>Let's talk</strong>
+<p>End-to-end AI automation designed specifically around your business.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap contact">
+<div>
+<div class="tag">Let's build your workflow</div>
+<h2>Tell us what you want to automate.</h2>
+<p>Talk to FS AI Automation about sales, customer support, follow-ups, operations or a custom AI system.</p>
+<p><a class="whatsapp" href="https://wa.me/917304803858" target="_blank">WhatsApp: +91 73048 03858 ↗</a></p>
+<p><a class="whatsapp" href="https://instagram.com/f.s._ai_automation_" target="_blank">Instagram: @f.s._ai_automation_ ↗</a></p>
+</div>
+
+<div class="card">
+<h3>FS AI Automation</h3>
+<p>AI systems for modern businesses.</p>
+<p>India-first. Built for global reach.</p>
+<a class="btn primary" href="https://wa.me/917304803858" target="_blank">Start on WhatsApp ↗</a>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="wrap">
+<strong>FS AI Automation</strong>
+<span>© 2026 FS AI Automation. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
